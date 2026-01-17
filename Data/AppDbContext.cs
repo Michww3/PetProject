@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PetProject.DTOs;
+using PetProject.Entitys;
 using System.Collections.Generic;
 
 namespace PetProject.Data

@@ -1,4 +1,4 @@
-﻿namespace PetProject.DTOs
+﻿namespace PetProject.Entitys
 {
     public class User
     {
