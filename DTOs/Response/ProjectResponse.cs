@@ -1,9 +1,8 @@
-﻿namespace PetProject.Entitys
+﻿namespace PetProject.DTOs.Response
 {
-    public class Project
+    public class ProjectResponse
     {
         public Guid Id { get; set; }
-        public Guid UserId { get; set; }
         public string Name { get; set; } = null!;
         public string? Description { get; set; }
     }

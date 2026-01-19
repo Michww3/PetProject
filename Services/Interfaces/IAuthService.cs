@@ -1,4 +1,4 @@
-﻿using PetProject.DTOs;
+﻿using PetProject.DTOs.Request;
 using PetProject.Entitys;
 
 namespace PetProject.Services.Interfaces

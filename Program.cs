@@ -53,6 +53,7 @@ public partial class Program
         builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
         builder.Services.AddTransient<IAuthService, AuthService>();
         builder.Services.AddTransient<IUserProfileService, UserProfileService>();
+        builder.Services.AddTransient<IProjectService, ProjectService>();
         builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
         var app = builder.Build();

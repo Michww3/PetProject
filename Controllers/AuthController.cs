@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PetProject.DTOs;
+using PetProject.DTOs.Request;
+using PetProject.DTOs.Response;
 using PetProject.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -39,16 +40,15 @@ namespace PetProject.Controllers
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> RegisterAsync(
-            [FromBody] RegisterRequest request)
+        public async Task<ActionResult<UserResponse>> Register([FromBody] RegisterRequest request)
         {
             var user = await _authService.RegisterAsync(request);
 
-            return Created(string.Empty, new
+            return Created(string.Empty, new UserResponse
             {
-                user.Id,
-                user.Username,
-                user.Email
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
             });
         }
 
@@ -73,16 +73,15 @@ namespace PetProject.Controllers
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> LoginAsync(
-            [FromBody] LoginRequest request)
+        public async Task<ActionResult<TokenResponse>> Login([FromBody] LoginRequest request)
         {
             var token = await _authService.LoginAsync(request);
 
-            return Ok(new
+            return Ok(new TokenResponse
             {
-                access_token = token,
-                token_type = "Bearer",
-                expires_in = 86400
+                Token = token,
+                TokenType = "Bearer",
+                ExpiresIn = 86400
             });
         }
     }

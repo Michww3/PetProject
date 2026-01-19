@@ -16,7 +16,7 @@ namespace PetProject.Services
 
         public async Task<User> GetProfileAsync(Guid guid)
         {
-            var user = await _unitOfWork.Repository<User>().Get(guid);
+            var user = await _unitOfWork.Repository<User>().GetAsync(guid);
             if (user == null)
                 throw new NotFoundException("User not found");
 

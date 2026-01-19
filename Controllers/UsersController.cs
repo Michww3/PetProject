@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PetProject.DataAccess.DbPatterns.Interfaces;
-using PetProject.DTOs;
-using PetProject.Entitys;
+using PetProject.DTOs.Response;
 using PetProject.Services.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace PetProject.Controllers
@@ -22,7 +19,7 @@ namespace PetProject.Controllers
         }
 
         [HttpGet("profile")]
-        public async Task<ActionResult> GetProfile()
+        public async Task<ActionResult<UserResponse>> GetProfile()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -31,11 +28,11 @@ namespace PetProject.Controllers
 
             var user = await _userProfileService.GetProfileAsync(userId);
 
-            return Ok(new
+            return Ok(new UserResponse
             {
-                user.Id,
-                user.Username,
-                user.Email
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email
             });
         }
     }

@@ -1,12 +1,8 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using PetProject.DataAccess.DbPatterns.Interfaces;
-using PetProject.DTOs;
+﻿using PetProject.DataAccess.DbPatterns.Interfaces;
+using PetProject.DTOs.Request;
 using PetProject.Entitys;
 using PetProject.Exceptions;
 using PetProject.Services.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace PetProject.Services
 {
@@ -19,7 +15,7 @@ namespace PetProject.Services
         public AuthService(IUnitOfWork unitOfWork, IJwtTokenService jwtTokenService)
         {
             _unitOfWork = unitOfWork;
-            _userRepository = _unitOfWork.Repository<User>();
+            _userRepository = unitOfWork.Repository<User>();
             _jwtTokenService = jwtTokenService;
         }
 
@@ -42,7 +38,7 @@ namespace PetProject.Services
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password)
             };
 
-            await _userRepository.Create(user);
+            await _userRepository.CreateAsync(user);
             await _unitOfWork.SaveChangesAsync();
 
             return user;

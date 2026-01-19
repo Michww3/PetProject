@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PetProject.DTOs
+namespace PetProject.DTOs.Request
 {
     public class RegisterRequest
     {
