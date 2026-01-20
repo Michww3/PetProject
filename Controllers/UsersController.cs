@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.DTOs.Response;
+using PetProject.Services.Extension;
 using PetProject.Services.Interfaces;
 using System.Security.Claims;
 
@@ -21,10 +22,7 @@ namespace PetProject.Controllers
         [HttpGet("profile")]
         public async Task<ActionResult<UserResponse>> GetProfile()
         {
-            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
-
-            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
-                return Unauthorized(new { message = "Invalid or missing token" });
+            var userId = User.GetUserId();
 
             var user = await _userProfileService.GetProfileAsync(userId);
 

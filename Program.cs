@@ -54,6 +54,7 @@ public partial class Program
         builder.Services.AddTransient<IAuthService, AuthService>();
         builder.Services.AddTransient<IUserProfileService, UserProfileService>();
         builder.Services.AddTransient<IProjectService, ProjectService>();
+        builder.Services.AddTransient<INodeGraphService, NodeGraphService>();
         builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
         var app = builder.Build();

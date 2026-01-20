@@ -13,6 +13,21 @@ namespace PetProject.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<NodeGraph> NodeGraphs { get; set; }
         public DbSet<CustomNodeType> CustomNodeTypes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Project>()
+                .HasOne(p => p.User)
+                .WithMany(u => u.Projects)
+                .HasForeignKey(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<NodeGraph>()
+                .HasOne(g => g.Project)
+                .WithMany(p => p.NodeGraphs)
+                .HasForeignKey(g => g.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 
 }
