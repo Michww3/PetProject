@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PetProject.DTOs.Request;
 using PetProject.DTOs.Response;
-using PetProject.Services.Extension;
+using PetProject.Services.Extensions;
 using PetProject.Services.Interfaces;
 
 namespace PetProject.Controllers
@@ -76,7 +76,7 @@ namespace PetProject.Controllers
 
         // PUT /api/nodegraphs/{id}
         [HttpPut("{id:guid}")]
-        public async Task<ActionResult<NodeGraphResponse>> Update(Guid id, NodeGraphUpdateRequest request)
+        public async Task<ActionResult<NodeGraphResponse>> Update(Guid id, NodeGraphRequest request)
         {
             var userId = User.GetUserId();
 

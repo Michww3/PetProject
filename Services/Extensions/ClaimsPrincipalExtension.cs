@@ -1,7 +1,7 @@
 ﻿using PetProject.Exceptions;
 using System.Security.Claims;
 
-namespace PetProject.Services.Extension
+namespace PetProject.Services.Extensions
 {
     public static class ClaimsPrincipalExtension
     {

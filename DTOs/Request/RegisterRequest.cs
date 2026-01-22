@@ -9,7 +9,8 @@ namespace PetProject.DTOs.Request
         /// </summary>
         /// <example>john_doe</example>
         [Required]
-        [MinLength(3)]
+        [MinLength(2)]
+        [MaxLength(255)]
         public string Username { get; set; } = null!;
 
         /// <summary>
@@ -18,7 +19,8 @@ namespace PetProject.DTOs.Request
         /// <example>john@example.com</example>
         [Required]
         [EmailAddress]
-        [MinLength(3)]
+        [MinLength(2)]
+        [MaxLength(255)]
         public string Email { get; set; } = null!;
 
 
@@ -28,6 +30,7 @@ namespace PetProject.DTOs.Request
         /// <example>StrongPassword123!</example>
         [Required]
         [MinLength(8)]
+        [MaxLength(255)]
         public string Password { get; set; } = null!;
     }
 }

@@ -26,10 +26,7 @@ namespace PetProject.Services
                     g.Id == graphId &&
                     g.Project.UserId == userId);
 
-            if (graph == null)
-                throw new NotFoundException("NodeGraph not found");
-
-            return graph;
+            return graph ?? throw new NotFoundException("NodeGraph not found");
         }
 
         public async Task<IEnumerable<NodeGraph>> GetAllAsync(Guid userId)
@@ -67,10 +64,12 @@ namespace PetProject.Services
             return graph;
         }
 
-        public async Task<NodeGraph> UpdateAsync(Guid userId, Guid graphId, NodeGraphUpdateRequest request)
+        public async Task<NodeGraph> UpdateAsync(Guid userId, Guid graphId, NodeGraphRequest request)
         {
             var graph = await GetUserGraph(userId, graphId);
 
+            graph.Name = request.Name;
+            graph.ProjectId = request.ProjectId;
             graph.JsonData = request.JsonData;
 
             await _graphRepo.UpdateAsync(graph);

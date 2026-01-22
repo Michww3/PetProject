@@ -7,6 +7,7 @@ using PetProject.DataAccess.DbPatterns.Interfaces;
 using PetProject.Middlewares;
 using PetProject.Services;
 using PetProject.Services.Interfaces;
+using Serilog;
 using System.Reflection;
 using System.Text;
 
@@ -15,6 +16,13 @@ public partial class Program
     private static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Host.UseSerilog((context, services, configuration) =>
+        {
+            configuration
+                .ReadFrom.Configuration(context.Configuration)
+                .ReadFrom.Services(services);
+        });
 
         builder.Services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(
@@ -60,6 +68,8 @@ public partial class Program
         var app = builder.Build();
 
         app.UseGlobalExceptionHandler();
+
+        app.UseSerilogRequestLogging();
 
         using (var scope = app.Services.CreateScope())
         {

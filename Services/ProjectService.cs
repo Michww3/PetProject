@@ -21,10 +21,7 @@ namespace PetProject.Services
         {
             var project = await _projectRepo.FirstOrDefaultAsync(p => p.Id == projectId && p.UserId == userId);
 
-            if (project == null)
-                throw new NotFoundException("Project not found");
-
-            return project;
+            return project ?? throw new NotFoundException("Project not found");
         }
 
         public async Task<IEnumerable<Project>> GetAllAsync(Guid userId)
@@ -36,7 +33,6 @@ namespace PetProject.Services
         {
             var project = new Project
             {
-                //?
                 Id = Guid.NewGuid(),
                 UserId = userId,
                 Name = request.Name,

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetProject.DTOs.Response;
-using PetProject.Services.Extension;
+using PetProject.Services.Extensions;
 using PetProject.Services.Interfaces;
-using System.Security.Claims;
 
 namespace PetProject.Controllers
 {

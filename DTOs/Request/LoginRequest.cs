@@ -11,6 +11,7 @@ namespace PetProject.DTOs.Request
         [Required]
         [EmailAddress]
         [MinLength(3)]
+        [MaxLength(255)]
         public String Email { get; set; } = null!;
         /// <summary>
         /// Пароль
@@ -18,6 +19,7 @@ namespace PetProject.DTOs.Request
         /// <example>StrongPassword123!</example>
         [Required]
         [MinLength (8)]
+        [MaxLength (255)]
         public String Password { get; set; } = null!;
     }
 }
