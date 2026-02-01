@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using PetProject.Data;
 using PetProject.DataAccess.DbPatterns;
 using PetProject.DataAccess.DbPatterns.Interfaces;
+using PetProject.GraphExecute;
 using PetProject.Middlewares;
 using PetProject.Services;
 using PetProject.Services.Interfaces;
@@ -19,9 +20,12 @@ public partial class Program
 
         builder.Host.UseSerilog((context, services, configuration) =>
         {
-            configuration
-                .ReadFrom.Configuration(context.Configuration)
-                .ReadFrom.Services(services);
+                configuration
+            .ReadFrom.Configuration(context.Configuration)
+            .ReadFrom.Services(services)
+            .Enrich.FromLogContext()
+            .Enrich.WithEnvironmentName()
+            .Enrich.WithMachineName();
         });
 
         builder.Services.AddDbContext<AppDbContext>(options =>
@@ -64,6 +68,12 @@ public partial class Program
         builder.Services.AddTransient<IProjectService, ProjectService>();
         builder.Services.AddTransient<INodeGraphService, NodeGraphService>();
         builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+        builder.Services.AddScoped<INodeExecutorService, NodeExecutorService>();
+
+        builder.Services.AddTransient<NumberAddNode>();
+        builder.Services.AddTransient<StringConcatNode>();
+        builder.Services.AddTransient<ConsoleLogNode>();
 
         var app = builder.Build();
 

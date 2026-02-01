@@ -64,12 +64,12 @@ namespace PetProject.Services
             return graph;
         }
 
-        public async Task<NodeGraph> UpdateAsync(Guid userId, Guid graphId, NodeGraphRequest request)
+        public async Task<NodeGraph> UpdateAsync(Guid userId, Guid graphId, NodeGraphUpdateRequest request)
         {
             var graph = await GetUserGraph(userId, graphId);
 
             graph.Name = request.Name;
-            graph.ProjectId = request.ProjectId;
+            //graph.ProjectId = request.ProjectId;
             graph.JsonData = request.JsonData;
 
             await _graphRepo.UpdateAsync(graph);

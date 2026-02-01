@@ -1,4 +1,6 @@
-﻿namespace PetProject.GraphExecute
+﻿using PetProject.Exceptions;
+
+namespace PetProject.GraphExecute
 {
     public class StringConcatNode : NodeBase
     {
@@ -7,7 +9,7 @@
             if (!inputs.TryGetValue("Str1", out var str1) ||
                 !inputs.TryGetValue("Str2", out var str2))
             {
-                throw new ArgumentException("Inputs 'Str1' and 'Str2' are required");
+                throw new NodeInputException("Inputs 'Str1' and 'Str2' are required");
             }
 
             var result = $"{str1}{str2}";
